@@ -4,11 +4,11 @@ package edu.ucsb.pconrad;
  * Created by pconrad on 3/2/17.
  */
 
+import java.util.List;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.openqa.selenium.*;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.Select;
 
@@ -21,6 +21,13 @@ import java.util.regex.Pattern;
 import java.util.concurrent.TimeUnit;
 import static org.junit.Assert.*;
 import static org.hamcrest.CoreMatchers.*;
+
+
+import org.openqa.selenium.*;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+
 
 public class BarFooTest{
 
@@ -44,22 +51,30 @@ public class BarFooTest{
     public void testJavaJUnit4WebdriverYES() throws Exception {
         // ERROR: Caught exception [ERROR: Unsupported command [selectWindow | null | ]]
         new Select(driver.findElement(By.id("ctl00_pageContent_courseList"))).selectByVisibleText("Computer Science - CMPSC");
-        Thread.sleep(4000);
+        Thread.sleep(1000);
 
         new Select(driver.findElement(By.id("ctl00_pageContent_quarterList"))).selectByVisibleText("SPRING 2017");
-        Thread.sleep(4000);
+        Thread.sleep(1000);
 
         driver.findElement(By.id("ctl00_pageContent_searchButton")).click();
         System.out.println("YES");
-        Thread.sleep(4000);
+        Thread.sleep(1000);
         System.out.println("Page title is: " + driver.getTitle());
-        Thread.sleep(4000);
+
+        List<WebElement> elements = driver.findElements(By.xpath("//*[@id=\"aspnetForm\"]/table/tbody/tr[3]/td/div/center/table/tbody"));
+        System.out.println("Test7 number of elements: " + elements.size());
+
+        for(WebElement ele : elements){
+            System.out.println(ele.getText());
+        }
+
+        Thread.sleep(1000);
 
     }
 
     @After
     public void tearDown() throws Exception {
-        Thread.sleep(4000);
+        Thread.sleep(1000);
 
         driver.quit();
         String verificationErrorString = verificationErrors.toString();
